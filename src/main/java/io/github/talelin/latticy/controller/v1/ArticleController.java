@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.core.annotation.GroupRequired;
 import io.github.talelin.core.annotation.PermissionMeta;
+import io.github.talelin.latticy.common.api.ApiResponseBody;
+import io.github.talelin.latticy.common.enumeration.BizCodeMsgEnum;
 import io.github.talelin.latticy.dto.article.CreateOrUpdateArticleDTO;
 import io.github.talelin.latticy.model.ArticleDO;
 import io.github.talelin.latticy.service.ArticleService;
@@ -44,20 +46,20 @@ public class ArticleController {
 
     //列表查询
     @GetMapping("")
-    public ResponseEntity<List<ArticleDO>> getArticles() {
+    public ApiResponseBody<List<ArticleDO>> getArticles() {
         List<ArticleDO> all = articleService.findAll(new LambdaQueryWrapper());
-        return ResponseEntity.ok(all);
+        return ApiResponseBody.defaultSuccess(all);
     }
 
     //分页查询
     @GetMapping("page")
-    public ResponseEntity<IPage<ArticleDO>> getArticlePage(@RequestParam(value = "size",defaultValue = "10")Long size,
+    public ApiResponseBody<IPage<ArticleDO>> getArticlePage(@RequestParam(value = "size",defaultValue = "10")Long size,
                                                         @RequestParam(value = "current",defaultValue = "1")Long current) {
         IPage<ArticleDO> page = new Page<>();
         page.setCurrent(current);
         page.setSize(size);
         IPage<ArticleDO> all = articleService.getPage(page,new LambdaQueryWrapper());
-        return ResponseEntity.ok(all);
+        return ApiResponseBody.defaultSuccess(all);
     }
 
 
