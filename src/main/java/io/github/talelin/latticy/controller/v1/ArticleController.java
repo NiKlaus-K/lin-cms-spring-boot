@@ -52,13 +52,13 @@ public class ArticleController {
     }
 
     //分页查询
-    @GetMapping("page")
-    public ApiResponseBody<IPage<ArticleDO>> getArticlePage(@RequestParam(value = "size",defaultValue = "10")Long size,
-                                                        @RequestParam(value = "current",defaultValue = "1")Long current) {
-        IPage<ArticleDO> page = new Page<>();
-        page.setCurrent(current);
-        page.setSize(size);
-        IPage<ArticleDO> all = articleService.getPage(page,new LambdaQueryWrapper());
+    @PostMapping("page")
+    public ApiResponseBody<IPage<ArticleDO>> getArticlePage(@RequestParam(value = "count",defaultValue = "10")Long count,
+                                                        @RequestParam(value = "page",defaultValue = "1")Long page) {
+        IPage<ArticleDO> articleDOPage = new Page<>();
+        articleDOPage.setCurrent(count);
+        articleDOPage.setSize(page);
+        IPage<ArticleDO> all = articleService.getPage(articleDOPage,new LambdaQueryWrapper());
         return ApiResponseBody.defaultSuccess(all);
     }
 
