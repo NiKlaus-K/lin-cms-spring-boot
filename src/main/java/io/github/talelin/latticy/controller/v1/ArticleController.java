@@ -1,5 +1,8 @@
 package io.github.talelin.latticy.controller.v1;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.core.annotation.GroupRequired;
 import io.github.talelin.core.annotation.PermissionMeta;
@@ -10,6 +13,7 @@ import io.github.talelin.latticy.vo.CreatedVO;
 import io.github.talelin.latticy.vo.DeletedVO;
 import io.github.talelin.latticy.vo.UpdatedVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,8 +43,10 @@ public class ArticleController {
     }
 
     @GetMapping("")
-    public List<ArticleDO> getArticles() {
-        return articleService.findAll();
+    public ResponseEntity<IPage<ArticleDO>> getArticles() {
+        IPage<ArticleDO> page = new Page<>();
+        IPage<ArticleDO> all = articleService.findAll(page,new LambdaQueryWrapper());
+        return ResponseEntity.ok(all);
     }
 
 

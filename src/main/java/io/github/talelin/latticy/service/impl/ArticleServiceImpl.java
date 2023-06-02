@@ -1,5 +1,7 @@
 package io.github.talelin.latticy.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.talelin.latticy.dto.article.CreateOrUpdateArticleDTO;
 import io.github.talelin.latticy.mapper.ArticleMapper;
 import io.github.talelin.latticy.model.ArticleDO;
@@ -50,8 +52,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleDO> findAll() {
-        return articleMapper.selectList(null);
+    public IPage<ArticleDO> findAll(IPage<ArticleDO> page,LambdaQueryWrapper lqw) {
+        return articleMapper.selectPage(page,lqw);
     }
 
     @Override

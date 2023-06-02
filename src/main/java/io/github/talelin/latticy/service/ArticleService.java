@@ -1,5 +1,7 @@
 package io.github.talelin.latticy.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.talelin.latticy.dto.article.CreateOrUpdateArticleDTO;
 import io.github.talelin.latticy.model.ArticleDO;
 
@@ -43,7 +45,7 @@ public interface ArticleService {
      * 查询所有文章
      * @return 文章数据对象集合
      */
-    List<ArticleDO> findAll();
+    IPage<ArticleDO> findAll(IPage<ArticleDO> page, LambdaQueryWrapper lqw);
 
     /**
      * 删除文章
