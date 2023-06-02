@@ -45,7 +45,13 @@ public interface ArticleService {
      * 查询所有文章
      * @return 文章数据对象集合
      */
-    IPage<ArticleDO> findAll(IPage<ArticleDO> page, LambdaQueryWrapper lqw);
+    List<ArticleDO> findAll(LambdaQueryWrapper lqw);
+
+    /**
+     * 查询所有文章
+     * @return 文章数据对象集合
+     */
+    IPage<ArticleDO> getPage(IPage<ArticleDO> page, LambdaQueryWrapper lqw);
 
     /**
      * 删除文章

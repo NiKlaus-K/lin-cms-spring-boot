@@ -42,10 +42,21 @@ public class ArticleController {
         return article;
     }
 
+    //列表查询
     @GetMapping("")
-    public ResponseEntity<IPage<ArticleDO>> getArticles() {
+    public ResponseEntity<List<ArticleDO>> getArticles() {
+        List<ArticleDO> all = articleService.findAll(new LambdaQueryWrapper());
+        return ResponseEntity.ok(all);
+    }
+
+    //分页查询
+    @GetMapping("page")
+    public ResponseEntity<IPage<ArticleDO>> getArticlePage(@RequestParam(value = "size",defaultValue = "10")Long size,
+                                                        @RequestParam(value = "current",defaultValue = "1")Long current) {
         IPage<ArticleDO> page = new Page<>();
-        IPage<ArticleDO> all = articleService.findAll(page,new LambdaQueryWrapper());
+        page.setCurrent(current);
+        page.setSize(size);
+        IPage<ArticleDO> all = articleService.getPage(page,new LambdaQueryWrapper());
         return ResponseEntity.ok(all);
     }
 

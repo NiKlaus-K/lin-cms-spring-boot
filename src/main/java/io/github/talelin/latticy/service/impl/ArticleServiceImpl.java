@@ -52,9 +52,15 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public IPage<ArticleDO> findAll(IPage<ArticleDO> page,LambdaQueryWrapper lqw) {
+    public List<ArticleDO> findAll(LambdaQueryWrapper lqw) {
+        return articleMapper.selectList(lqw);
+    }
+
+    @Override
+    public IPage<ArticleDO> getPage(IPage<ArticleDO> page,LambdaQueryWrapper lqw) {
         return articleMapper.selectPage(page,lqw);
     }
+
 
     @Override
     public boolean deleteById(Integer id) {
